@@ -1,17 +1,17 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: theminutefeed-db
+    container_name: usflashnews-db
     restart: always
     environment:
-      POSTGRES_USER: theminutefeed
-      POSTGRES_PASSWORD: theminutefeed_pass_123
-      POSTGRES_DB: theminutefeed
+      POSTGRES_USER: ${POSTGRES_USER:-usflashnews}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-usflashnews_pass_123}
+      POSTGRES_DB: ${POSTGRES_DB:-usflashnews}
     ports:
       - '127.0.0.1:5440:5432'
     volumes:
-      - theminutefeed_db_data:/var/lib/postgresql/data
+      - usflashnews_db_data:/var/lib/postgresql/data
 
 volumes:
-  theminutefeed_db_data:
+  usflashnews_db_data:
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# deploy.sh — theminutefeed VPS Deployment Script (PM2 + Nginx + Docker DB 5440)
+# deploy.sh — usflashnews VPS Deployment Script (PM2 + Nginx + Docker DB 5440)
 set -e
 
 GREEN='\033[0;32m'
@@ -19,21 +19,23 @@ npm ci --ignore-scripts
 # 3. Build Next.js & Payload application
 echo "🔨 Building Next.js & Payload application..."
 NODE_OPTIONS="--max-old-space-size=1536" npm run build
+cp -rn public .next/standalone/ 2>/dev/null || true
+cp -rn .next/static .next/standalone/.next/ 2>/dev/null || true
 
 # 4. Reload PM2 process
 echo "♻️  Reloading PM2 application..."
-pm2 reload ecosystem.config.cjs || pm2 start ecosystem.config.cjs
+pm2 reload usflashnews || pm2 start ecosystem.config.cjs
 pm2 save
 
 # 5. Health Check
 echo "🔥 Checking application health..."
 sleep 3
-if curl -s -f -H "Host: usflashnews.com" http://127.0.0.1:3003 > /dev/null; then
+if curl -s -f -H "Host: usflashnews.com" http://127.0.0.1:3004 > /dev/null; then
     echo -e "${GREEN}✓ Application updated successfully!${NC}"
 else
-    echo -e "${RED}⚠️ Warning: Health check returned non-200. Check pm2 logs theminutefeed${NC}"
+    echo -e "${RED}⚠️ Warning: Health check returned non-200. Check pm2 logs usflashnews${NC}"
 fi
 
 echo -e "${GREEN}✅ Deployment complete!${NC}"
-pm2 status theminutefeed
+pm2 status usflashnews
 

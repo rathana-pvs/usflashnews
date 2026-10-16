@@ -76,7 +76,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || 'postgresql://theminutefeed:theminutefeed_pass_123@localhost:5440/theminutefeed',
+      connectionString: process.env.DATABASE_URI || 'postgresql://usflashnews:usflashnews_pass_123@localhost:5440/usflashnews',
     },
   }),
   plugins: [
