@@ -12,7 +12,7 @@ export const mockCategories: Record<string, Category> = {
 export const mockAuthors: Author[] = [
   {
     "id": "author-1",
-    "name": "The Minute Feed Newsroom",
+    "name": "US Flash News Newsroom",
     "slug": "theminutefeed-newsroom",
     "role": "International News Network",
     "bio": "Latest news, analysis and features from Al Jazeera's global network.",
@@ -20,25 +20,25 @@ export const mockAuthors: Author[] = [
       "id": "media-a1",
       "filename": "avatar.jpg",
       "url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
-      "alt": "The Minute Feed Newsroom"
+      "alt": "US Flash News Newsroom"
     },
     "twitter": "theminutefeed",
     "email": "news@aljazeera.net"
   },
   {
     "id": "author-2",
-    "name": "The Minute Feed Editorial Desk",
+    "name": "US Flash News Editorial Desk",
     "slug": "theminutefeed-editorial",
     "role": "Senior Newsroom Desk",
-    "bio": "Latest breaking political and international reporting from The Minute Feed news team.",
+    "bio": "Latest breaking political and international reporting from US Flash News news team.",
     "avatar": {
       "id": "media-a2",
       "filename": "avatar.jpg",
       "url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
-      "alt": "The Minute Feed Editorial Desk"
+      "alt": "US Flash News Editorial Desk"
     },
     "twitter": "theminutefeed",
-    "email": "news@theminutefeed.com"
+    "email": "news@usflashnews.com"
   }
 ]
 
@@ -1958,10 +1958,10 @@ export const mockArticles: Article[] = legacyMockArticles.map((article) => ({
   author: article.author && typeof article.author === 'object'
     ? {
         ...article.author,
-        name: article.author.name.replace(/InstantlyFeed/gi, 'The Minute Feed'),
+        name: article.author.name.replace(/InstantlyFeed/gi, 'US Flash News'),
         slug: article.author.slug.replace(/(?:pulefeed-stuff|instantlyfeed-editorial)/gi, 'theminutefeed-newsroom'),
-        bio: article.author.bio?.replace(/InstantlyFeed/gi, 'The Minute Feed'),
-        email: article.author.email?.replace(/(?:instantlyfeed|uspolicybrief)\.com$/i, 'theminutefeed.com'),
+        bio: article.author.bio?.replace(/InstantlyFeed/gi, 'US Flash News'),
+        email: article.author.email?.replace(/(?:instantlyfeed|uspolicybrief)\.com$/i, 'usflashnews.com'),
       }
     : article.author,
 }))

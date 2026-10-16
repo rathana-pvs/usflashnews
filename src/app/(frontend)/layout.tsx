@@ -10,18 +10,18 @@ import { VisitorCounter } from '@/components/layout/VisitorCounter'
 import { getBreakingArticles } from '@/lib/api-server'
 
 const envUrl = process.env.NEXT_PUBLIC_SITE_URL
-const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://theminutefeed.com'
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'The Minute Feed'
+const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://usflashnews.com'
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'US Flash News'
 const adskeeperSiteId = process.env.NEXT_PUBLIC_ADS_KEEPER_SITE_ID
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} — News that respects your time`,
+    default: `${siteName} — The news moves fast. Stay ahead.`,
     template: `%s — ${siteName}`,
   },
   description: 'Fast, clear, independent reporting on the stories shaping politics, business, technology, culture, climate, and the world.',
-  keywords: ['breaking news', 'world news', 'politics', 'business', 'technology', 'culture', 'climate', 'analysis', 'The Minute Feed'],
+  keywords: ['breaking news', 'world news', 'politics', 'business', 'technology', 'culture', 'climate', 'analysis', 'US Flash News'],
   openGraph: {
     siteName,
     type: 'website',

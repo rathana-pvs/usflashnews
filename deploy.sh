@@ -6,7 +6,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}🚀 Deploying The Minute Feed (PM2 + Nginx)...${NC}"
+echo -e "${GREEN}🚀 Deploying US Flash News (PM2 + Nginx)...${NC}"
 
 # 1. Pull latest code
 echo "📥 Pulling latest code..."
@@ -28,7 +28,7 @@ pm2 save
 # 5. Health Check
 echo "🔥 Checking application health..."
 sleep 3
-if curl -s -f -H "Host: theminutefeed.com" http://127.0.0.1:3003 > /dev/null; then
+if curl -s -f -H "Host: usflashnews.com" http://127.0.0.1:3003 > /dev/null; then
     echo -e "${GREEN}✓ Application updated successfully!${NC}"
 else
     echo -e "${RED}⚠️ Warning: Health check returned non-200. Check pm2 logs theminutefeed${NC}"

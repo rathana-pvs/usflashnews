@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import BrandLogo from '@/components/ui/BrandLogo';
 
 const menuGroups = [
   {
@@ -32,7 +33,7 @@ const menuGroups = [
     ],
   },
   {
-    title: 'The Minute Feed',
+    title: 'US Flash News',
     links: [
       ['About Us', '/about'],
       ['Contact', '/contact'],
@@ -115,23 +116,16 @@ export default function Header() {
           </button>
         </div>
 
-        <Link href="/" className="site-brand-logo" aria-label="The Minute Feed homepage">
-          <span className="brand-mark" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </span>
-          <span className="brand-wordmark"><span>The</span> Minute Feed</span>
-        </Link>
+        <BrandLogo />
 
-        <div className="masthead-right" aria-hidden="true" />
+        <div className="masthead-right"><Link href="/live" className="masthead-live"><span className="live-dot" aria-hidden="true" />Live coverage <span aria-hidden="true">↗</span></Link></div>
       </div>
 
       {searchOpen && (
         <div className="search-drawer animate-in fade-in duration-200">
           <form className="bbc-container search-form" role="search" onSubmit={handleSearchSubmit}>
             <label className="skip-link" htmlFor="site-search">
-              Search The Minute Feed
+              Search US Flash News
             </label>
             <input
               id="site-search"

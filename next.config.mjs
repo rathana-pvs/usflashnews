@@ -2,6 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  devIndicators: false,
   images: {
     remotePatterns: [
       {
@@ -51,6 +52,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'theminutefeed.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'usflashnews.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.usflashnews.com',
       },
       {
         protocol: 'https',

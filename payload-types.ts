@@ -124,7 +124,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * News articles published by The Minute Feed.
+ * News articles published by US Flash News.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".

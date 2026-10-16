@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 
 const seed = async () => {
-  console.log('🚀 Starting The Minute Feed Database Seed...')
+  console.log('🚀 Starting US Flash News Database Seed...')
   const payload = await getPayload({ config })
 
   // 1. Clear existing data
@@ -31,7 +31,7 @@ const seed = async () => {
 
   // 2. Ensure Admin User
   console.log('\n👤 Ensuring Admin User...')
-  const adminEmail = 'admin@theminutefeed.com'
+  const adminEmail = 'admin@usflashnews.com'
   const adminPassword = 'adminpassword123'
 
   const existingAdmin = await payload.find({
@@ -45,7 +45,7 @@ const seed = async () => {
       data: {
         email: adminEmail,
         password: adminPassword,
-        name: 'The Minute Feed Admin',
+        name: 'US Flash News Admin',
         role: 'admin',
       },
     })
@@ -64,20 +64,20 @@ const seed = async () => {
   const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf-8'))
   const authors = (seedData.authors || []).map((author: any) => ({
     ...author,
-    name: author.name?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'The Minute Feed'),
+    name: author.name?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'US Flash News'),
     slug: author.slug?.replace(/(?:pulefeed-stuff|instantlyfeed-editorial|pulefeed-editorial)/gi, 'theminutefeed-newsroom'),
-    bio: author.bio?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'The Minute Feed'),
-    email: author.email?.replace(/(?:instantlyfeed|pulefeed|uspolicybrief|thedcminute)\.(?:com|tech)$/i, 'theminutefeed.com'),
+    bio: author.bio?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'US Flash News'),
+    email: author.email?.replace(/(?:instantlyfeed|pulefeed|uspolicybrief|thedcminute)\.(?:com|tech)$/i, 'usflashnews.com'),
   }))
   const articles = (seedData.articles || []).map((article: any) => ({
     ...article,
-    credit: article.credit ? article.credit.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'The Minute Feed') : 'The Minute Feed Wire Service',
+    credit: article.credit ? article.credit.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'US Flash News') : 'US Flash News Wire Service',
     author: article.author && {
       ...article.author,
-      name: article.author.name?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'The Minute Feed'),
+      name: article.author.name?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'US Flash News'),
       slug: article.author.slug?.replace(/(?:pulefeed-stuff|instantlyfeed-editorial|pulefeed-editorial)/gi, 'theminutefeed-newsroom'),
-      bio: article.author.bio?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'The Minute Feed'),
-      email: article.author.email?.replace(/(?:instantlyfeed|pulefeed|uspolicybrief|thedcminute)\.(?:com|tech)$/i, 'theminutefeed.com'),
+      bio: article.author.bio?.replace(/(?:InstantlyFeed|Pulefeed|The DC Minute)/gi, 'US Flash News'),
+      email: article.author.email?.replace(/(?:instantlyfeed|pulefeed|uspolicybrief|thedcminute)\.(?:com|tech)$/i, 'usflashnews.com'),
     },
   }))
   console.log(`📦 Loaded ${articles.length} articles and ${authors.length} authors from seed file`)
@@ -97,7 +97,7 @@ const seed = async () => {
       slug: author.slug,
       bio: author.bio || '',
       role: author.role || 'Staff Reporter',
-      email: author.email || 'news@theminutefeed.com',
+      email: author.email || 'news@usflashnews.com',
     }
 
     if (existing.docs.length === 0) {
@@ -190,7 +190,7 @@ const seed = async () => {
       isFeatured: !!art.isFeatured,
       publishedAt: art.publishedAt,
       readTime: art.readTime || 3,
-      credit: art.credit || 'The Minute Feed Wire Service',
+      credit: art.credit || 'US Flash News Wire Service',
       og: art.og || {
         metaTitle: art.title,
         metaDescription: art.excerpt,
@@ -215,7 +215,7 @@ const seed = async () => {
   }
 
   console.log(`\n==============================================`)
-  console.log(`🎉 The Minute Feed Seed Completed Successfully!`)
+  console.log(`🎉 US Flash News Seed Completed Successfully!`)
   console.log(`- Total Articles Seeded: ${successCount} / ${articles.length}`)
   console.log(`- Admin Credentials: ${adminEmail} / ${adminPassword}`)
   console.log(`==============================================\n`)

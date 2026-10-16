@@ -1,6 +1,6 @@
-# The Minute Feed
+# US Flash News
 
-**News that respects your time.** A fast, clear, independent digital newsroom covering politics, business, technology, culture, climate, and world affairs at [theminutefeed.com](https://theminutefeed.com).
+**The news moves fast. Stay ahead.** A fast, clear, independent digital newsroom covering politics, business, technology, culture, climate, and world affairs at [usflashnews.com](https://usflashnews.com).
 
 Built with **Next.js 15 (App Router)**, **Payload CMS v3**, and **PostgreSQL**, with a responsive editorial design system and a purpose-built newsroom workflow.
 
@@ -9,7 +9,7 @@ Built with **Next.js 15 (App Router)**, **Payload CMS v3**, and **PostgreSQL**, 
 ## 🌟 Key Features
 
 - **Editorial Layout & Design**:
-  - Distinctive feed-pulse identity, navy and signal-red palette, and compact wordmark.
+  - Lightning-bolt identity, deep navy and news-red palette, and a compact usflashnews.com wordmark.
   - Clear masthead, breaking-news ticker, and multi-channel navigation.
   - Compact, ranked **Most Read** sidebar and curated section blocks.
   - Full-width hero coverage, regional beat explorer, and video hub.
@@ -65,8 +65,8 @@ DATABASE_URI=postgresql://uspolicybrief:your_secure_password@localhost:5432/uspo
 PAYLOAD_SECRET=your_secure_32_byte_secret
 
 # Site Config
-NEXT_PUBLIC_SITE_URL=https://theminutefeed.com
-NEXT_PUBLIC_SITE_NAME="The Minute Feed"
+NEXT_PUBLIC_SITE_URL=https://usflashnews.com
+NEXT_PUBLIC_SITE_NAME="US Flash News"
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 # Gemini AI API
@@ -121,4 +121,4 @@ The Payload Admin Panel is accessible at `/admin`.
 
 ## 🔒 License & Copyright
 
-© 2026 **The Minute Feed**. All rights reserved.
+© 2026 **US Flash News**. All rights reserved.

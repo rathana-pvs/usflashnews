@@ -56,11 +56,11 @@ export const mockArticles: Article[] = ${JSON.stringify(
     },
     author: {
       id: 'author-1',
-      name: art.author?.name || 'The Minute Feed Newsroom',
+      name: art.author?.name || 'US Flash News Newsroom',
       slug: art.author?.slug || 'theminutefeed-newsroom',
       role: art.author?.role || 'Staff Reporter',
       bio: art.author?.bio || '',
-      email: art.author?.email || 'news@theminutefeed.com',
+      email: art.author?.email || 'news@usflashnews.com',
     },
     status: 'published',
     isBreaking: !!art.isBreaking,

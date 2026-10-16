@@ -1,31 +1,37 @@
 import sharp from 'sharp'
+import { writeFile } from 'node:fs/promises'
 
-const icon = (background, bar, accent) => `
+const icon = (background, accent) => `
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <rect width="512" height="512" rx="256" fill="${background}"/>
-  <rect x="146" y="254" width="52" height="112" rx="26" fill="${bar}"/>
-  <rect x="230" y="126" width="52" height="240" rx="26" fill="${accent}"/>
-  <rect x="314" y="198" width="52" height="168" rx="26" fill="${bar}"/>
+  <rect width="512" height="512" rx="100" fill="${background}"/>
+  <path d="M296 48 112 288h128l-24 176L400 208H272l24-160Z" fill="${accent}"/>
 </svg>`
 
 const outputs = [
-  ['public/logo.png', 512, '#151526', '#ffffff', '#f04438'],
-  ['public/icon.png', 512, '#151526', '#ffffff', '#f04438'],
-  ['public/icon_512.png', 512, '#151526', '#ffffff', '#f04438'],
-  ['public/icon_192.png', 192, '#151526', '#ffffff', '#f04438'],
-  ['public/apple-icon.png', 180, '#151526', '#ffffff', '#f04438'],
-  ['public/favicon-32.png', 32, '#151526', '#ffffff', '#f04438'],
-  ['public/favicon.ico', 32, '#151526', '#ffffff', '#f04438'],
-  ['public/icon_light.png', 512, '#ffffff', '#151526', '#f04438'],
+  ['public/logo.png', 512, '#10233f', '#ffffff'],
+  ['public/icon.png', 512, '#c92732', '#ffffff'],
+  ['public/icon_512.png', 512, '#c92732', '#ffffff'],
+  ['public/icon_192.png', 192, '#c92732', '#ffffff'],
+  ['public/apple-icon.png', 180, '#c92732', '#ffffff'],
+  ['public/favicon-32.png', 32, '#c92732', '#ffffff'],
+  ['public/icon_light.png', 512, '#ffffff', '#c92732'],
 ]
 
-await Promise.all(
-  outputs.map(([path, size, background, bar, accent]) =>
-    sharp(Buffer.from(icon(background, bar, accent)))
-      .resize(size, size)
-      .png()
-      .toFile(path),
-  ),
-)
+await Promise.all(outputs.map(([path, size, background, accent]) =>
+  sharp(Buffer.from(icon(background, accent))).resize(size, size).png().toFile(path),
+))
 
-console.log(`Generated ${outputs.length} The Minute Feed brand assets.`)
+// Wrap the PNG in an ICO directory so the .ico file has a valid icon format.
+const png = await sharp(Buffer.from(icon('#c92732', '#ffffff'))).resize(32, 32).png().toBuffer()
+const header = Buffer.alloc(22)
+header.writeUInt16LE(1, 2)
+header.writeUInt16LE(1, 4)
+header[6] = 32
+header[7] = 32
+header.writeUInt16LE(1, 10)
+header.writeUInt16LE(32, 12)
+header.writeUInt32LE(png.length, 14)
+header.writeUInt32LE(22, 18)
+await writeFile('public/favicon.ico', Buffer.concat([header, png]))
+
+console.log(`Generated ${outputs.length + 1} US Flash News brand assets.`)

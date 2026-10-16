@@ -6,20 +6,20 @@ import { usePathname } from 'next/navigation'
 export function pingWhosAmungUs(title: string, url?: string) {
   if (typeof window === 'undefined') return
   try {
-    const siteKey = '2ps75enmaz'
+    const siteKey = 'br9ezsevbf'
     const targetUrl = url || window.location.href
     const referrer = document.referrer || ''
 
     // Clean and limit title to 80 chars
-    const cleanTitle = (title || 'The Minute Feed')
-      .replace(/\s*—\s*The Minute Feed.*$/i, '')
+    const cleanTitle = (title || 'US Flash News')
+      .replace(/\s*—\s*US Flash News.*$/i, '')
       .replace(/\s*—\s*theminutefeed.*$/i, '')
       .replace(/[\r\n\t]+/g, ' ')
       .trim()
       .slice(0, 80)
       .replace(/(\?=)|(\/)/g, '')
 
-    const pageTitle = encodeURIComponent(cleanTitle || 'The Minute Feed')
+    const pageTitle = encodeURIComponent(cleanTitle || 'US Flash News')
     const pageUrl = encodeURIComponent(targetUrl)
     const pageRef = encodeURIComponent(referrer)
     const randomId = Math.ceil(99999 * Math.random())
@@ -47,28 +47,7 @@ export function VisitorCounter() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // 1. Setup global queue
-    window._wau = window._wau || []
-    window._wau.push(['dynamic', '2ps75enmaz', '8kr', 'c4302bffffff', 'small'])
-
-    // 2. Ensure config script exists with exact ID required by whos.amung.us
-    if (!document.getElementById('_wau8kr')) {
-      const configScript = document.createElement('script')
-      configScript.id = '_wau8kr'
-      configScript.innerHTML = 'var _wau = _wau || []; _wau.push(["dynamic", "2ps75enmaz", "8kr", "c4302bffffff", "small"]);'
-      document.body.appendChild(configScript)
-    }
-
-    // 3. Ensure waust.at/d.js script is loaded
-    if (!document.getElementById('_wau_d_js')) {
-      const dScript = document.createElement('script')
-      dScript.id = '_wau_d_js'
-      dScript.async = true
-      dScript.src = '//waust.at/d.js'
-      document.body.appendChild(dScript)
-    }
-
-    // 4. Clear localStorage cache so whos.amung.us doesn't stick to the homepage title
+    // Keep page-view tracking without loading the visible counter widget.
     try {
       localStorage.removeItem('_wautime')
       localStorage.removeItem('_waucount')
@@ -78,7 +57,7 @@ export function VisitorCounter() {
     // Here we handle non-article routes (homepage, categories, static pages)
     if (pathname && !pathname.startsWith('/article/')) {
       const timer = setTimeout(() => {
-        let title = document.title || 'The Minute Feed'
+        let title = document.title || 'US Flash News'
         if (pathname === '/') {
           title = 'Homepage'
         } else {
@@ -92,29 +71,5 @@ export function VisitorCounter() {
     }
   }, [pathname])
 
-  return (
-    <div
-      id="wau-container-hidden"
-      style={{
-        position: 'absolute',
-        width: 1,
-        height: 1,
-        padding: 0,
-        margin: -1,
-        overflow: 'hidden',
-        clip: 'rect(0, 0, 0, 0)',
-        whiteSpace: 'nowrap',
-        border: 0,
-        opacity: 0,
-        pointerEvents: 'none',
-      }}
-      aria-hidden="true"
-    />
-  )
-}
-
-declare global {
-  interface Window {
-    _wau?: any[]
-  }
+  return null
 }

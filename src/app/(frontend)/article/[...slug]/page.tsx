@@ -24,17 +24,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const articleSlug = Array.isArray(rawSlug) ? rawSlug[rawSlug.length - 1] : rawSlug
 
   const article = await getArticle(articleSlug)
-  if (!article) return { title: 'Story Not Found — The Minute Feed' }
+  if (!article) return { title: 'Story Not Found — US Flash News' }
 
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL
-  const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://theminutefeed.com'
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'The Minute Feed'
-  const title = article.meta?.title || article.title
+  const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://usflashnews.com'
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'US Flash News'
+  const title = (article.meta?.title || article.title)
+    .replace(/\s*[—–|\-]\s*(?:The Minute Feed|US Flash News|theminutefeed(?:\.com)?|usflashnews(?:\.com)?)\s*$/i, '')
+  const authorName = article.author?.name?.replace(/The Minute Feed/gi, siteName) || `${siteName} Staff`
   const description = article.meta?.description || article.excerpt
   const ogImageUrl = getMediaUrl(article.coverImage)
 
   return {
-    title: `${title} — ${siteName}`,
+    title: { absolute: `${title} — ${siteName}` },
     description,
     alternates: {
       canonical: `/article/${articleSlug}`,
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `${siteUrl}/article/${articleSlug}`,
       siteName,
       publishedTime: article.publishedAt ?? undefined,
-      authors: [article.author?.name || `${siteName} Staff`],
+      authors: [authorName],
       images: ogImageUrl ? [ogImageUrl] : [],
     },
     twitter: {
@@ -76,8 +78,8 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL
-  const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://theminutefeed.com'
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'The Minute Feed'
+  const siteUrl = envUrl && !envUrl.includes('placeholder.com') ? envUrl : 'https://usflashnews.com'
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'US Flash News'
 
   if (trackingKey) {
     fetch(`${siteUrl}/api/track-share-link?key=${encodeURIComponent(trackingKey)}`, {
@@ -94,6 +96,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   if (!article) notFound()
 
+  const authorName = article.author?.name?.replace(/The Minute Feed/gi, siteName) || `${siteName} Staff`
   const allArticles = allArticlesRes.docs || []
   const heroImage = getMediaUrl(article.coverImage)
   const keyPoints = extractKeyPoints(article)
@@ -126,7 +129,7 @@ export default async function ArticlePage({ params }: PageProps) {
     dateModified: article.updatedAt,
     author: [{
       '@type': 'Person',
-      name: article.author?.name || `${siteName} Staff`,
+      name: authorName,
     }],
     publisher: {
       '@type': 'Organization',
@@ -150,7 +153,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
           <div className="article-meta-single-line">
             <span className="author-name">
-              {article.author?.name || `${siteName} Staff`}
+              {authorName}
             </span>
             <span className="meta-separator" aria-hidden="true">·</span>
             <time className="publication-date">Published {formattedDate}</time>

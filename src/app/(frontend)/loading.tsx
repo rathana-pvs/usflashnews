@@ -1,22 +1,18 @@
 'use client'
 
+import BrandLogo from '@/components/ui/BrandLogo'
 
 export default function Loading() {
-  // We use a simple fallback here since params are not available inside root loading.tsx easily
-  // but we can make it look premium regardless.
   return (
     <div className="fixed inset-0 z-[100] bg-[var(--bg-primary)] flex flex-col items-center justify-center p-6">
-      {/* Premium Loading Bar */}
-      <div className="w-full max-w-[200px] h-[2px] bg-[var(--border)] relative overflow-hidden mb-6">
+      <div aria-hidden="true" className="w-full max-w-[200px] h-[2px] bg-[var(--border)] relative overflow-hidden mb-6">
         <div className="absolute inset-0 bg-[var(--accent-red)] animate-loading-slide" />
       </div>
       
       <div className="text-center">
-        <h2 className="font-display text-2xl font-bold mb-2 animate-pulse text-[var(--text-primary)]">
-          THE DC <span className="text-[var(--accent-red)]">MINUTE</span>
-        </h2>
-        <p className="label-caps text-[10px] tracking-[0.3em] text-[var(--accent-red)] font-ui">
-          Retrieving Latest News...
+        <BrandLogo />
+        <p role="status" className="mt-5 text-[10px] uppercase tracking-[0.2em] text-[var(--accent-red)]">
+          Loading the latest story…
         </p>
       </div>
 

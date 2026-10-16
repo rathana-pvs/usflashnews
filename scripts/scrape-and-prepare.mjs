@@ -35,20 +35,20 @@ async function scrapeAndPrepare() {
 
     // Handle Author
     let authorData = {
-      name: 'The Minute Feed Editorial Desk',
+      name: 'US Flash News Editorial Desk',
       slug: 'theminutefeed-editorial',
       role: 'Senior Newsroom Desk',
-      bio: 'Latest breaking political and international reporting from The Minute Feed news team.',
-      email: 'news@theminutefeed.com',
+      bio: 'Latest breaking political and international reporting from US Flash News news team.',
+      email: 'news@usflashnews.com',
     }
 
     if (raw.author && typeof raw.author === 'object' && raw.author.name) {
       authorData = {
-        name: (raw.author.name === 'Toch Media' || raw.author.name === 'Pulefeed Newsroom') ? 'The Minute Feed Newsroom' : raw.author.name,
+        name: (raw.author.name === 'Toch Media' || raw.author.name === 'Pulefeed Newsroom') ? 'US Flash News Newsroom' : raw.author.name,
         slug: raw.author.slug || 'theminutefeed-newsroom',
         role: raw.author.role || 'Staff Reporter',
         bio: raw.author.bio || 'Comprehensive news coverage and analysis from our correspondents.',
-        email: raw.author.email || 'news@theminutefeed.com',
+        email: raw.author.email || 'news@usflashnews.com',
       }
     }
     authorMap.set(authorData.slug, authorData)
@@ -145,7 +145,7 @@ async function scrapeAndPrepare() {
         filesize: imageFilesize,
         source: localFilename ? 'local' : 'external',
       },
-      credit: raw.credit || 'The Minute Feed Wire Service',
+      credit: raw.credit || 'US Flash News Wire Service',
       author: authorData,
       tags: tags,
       status: 'published',
